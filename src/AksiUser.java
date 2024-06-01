@@ -28,7 +28,7 @@ public class AksiUser extends Aksi {
         Film.getFilms().forEach((key, value) -> {
             System.out.print("Film: " + key);
             System.out.print(" - Deskripsi: " + value.getDescription());
-            System.out.print(" - Harga: " + value.getPrice());
+            System.out.print(" - Harga: " + (int) value.getPrice());
             System.out.println(" - Stok: " + value.getStock());
         });
     }
@@ -56,15 +56,14 @@ public class AksiUser extends Aksi {
         }
         System.out.println("Harga satuan tiket " + Film.getFilms().get(filmName).getPrice());
         System.out.println("Total harga: " + Film.getFilms().get(filmName).getPrice() * jumlahTiket);
-        if (Akun.getCurrentUser().getSaldo() < Film.getFilms().get(filmName).getPrice()) {
+        if (Akun.getCurrentUser().getSaldo() < Film.getFilms().get(filmName).getPrice() * jumlahTiket) {
             System.out.println("Saldo tidak mencukupi, saldo yang dimiliki " + (int) Akun.getCurrentUser().getSaldo());
-            return;
         } else {
             Film.getFilms().get(filmName).setStock(stock - jumlahTiket);
             Akun.getCurrentUser().setSaldo(Akun.getCurrentUser().getSaldo() - Film.getFilms().get(filmName).getPrice());
+            Akun.getCurrentUser().addPesanan(Film.getFilms().get(filmName), jumlahTiket);
+            System.out.println("Tiket berhasil dipesan.");
         }
-        Akun.getCurrentUser().addPesanan(Film.getFilms().get(filmName), jumlahTiket);
-        System.out.println("Tiket berhasil dipesan.");
     }
 
     public void lihatPesanan() {
