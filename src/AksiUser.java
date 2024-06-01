@@ -63,6 +63,7 @@ public class AksiUser extends Aksi {
             Akun.getCurrentUser().setSaldo(Akun.getCurrentUser().getSaldo() - Film.getFilms().get(filmName).getPrice() * jumlahTiket);
             Akun.getCurrentUser().addPesanan(Film.getFilms().get(filmName), jumlahTiket);
             System.out.println("Tiket berhasil dipesan.");
+
         }
     }
 
